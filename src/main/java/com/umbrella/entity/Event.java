@@ -19,6 +19,8 @@ public class Event {
     private Integer id;
     @Column(name = "name", length = 100)
     private String name;
+    @Column(name = "capacity")
+    private Integer capacity;
     @Column(name = "event_date")
     private LocalDate eventDate;
     @Column(name = "event_time")
