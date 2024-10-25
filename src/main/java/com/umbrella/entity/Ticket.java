@@ -24,9 +24,9 @@ public class Ticket {
     @JoinColumn(name = "event_id")
     private Event event;
     @Column(name = "booking_date")
-    private LocalDate eventDate;
+    private LocalDate bookingDate;
     @Column(name = "booking_time")
-    private LocalTime eventTime;
+    private LocalTime bookingTime;
     @Column(name = "quantity_reserved")
     private Integer quantityReserved;
 }
