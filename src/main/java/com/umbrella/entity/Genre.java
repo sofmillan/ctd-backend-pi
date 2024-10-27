@@ -11,9 +11,8 @@ import lombok.*;
 @Table(name = "GENRES")
 public class Genre {
     @Id
+    @NonNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @Column(name = "name", length = 15)
     private String name;
 }
