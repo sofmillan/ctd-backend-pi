@@ -1,15 +1,14 @@
 package com.umbrella.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "FAVORITES")
+@Table(name = "favorites")
 public class Favorite {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

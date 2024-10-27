@@ -13,5 +13,5 @@ public class EventResponseDto {
     private String name;
     private String description;
     private String genreName;
-    private Set<String> galleryUrls;
+
 }

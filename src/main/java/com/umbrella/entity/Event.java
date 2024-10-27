@@ -14,19 +14,27 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "EVENT")
+@Table(name = "events")
 public class Event {
     @Id
     @NonNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(name = "name")
     private String name;
+    @Column(name = "capacity")
     private Integer capacity;
+    @Column(name = "event_date")
     private LocalDate eventDate;
+    @Column(name = "event_time")
     private LocalTime eventTime;
+    @Column(name = "site")
     private String site;
+    @Column(name = "city")
     private String city;
+    @Column(name = "description")
     private String description;
+    @Column(name = "cover_image_url")
     private String coverImageUrl;
     @ManyToOne
     @JoinColumn(name = "genre_id")
