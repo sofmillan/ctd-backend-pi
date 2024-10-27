@@ -1,14 +1,15 @@
 package com.umbrella.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -36,5 +37,10 @@ public class Event {
     @ManyToOne
     @JoinColumn(name = "genre_id")
     private Genre genre;
+
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Set<Gallery> galleries;
+
 
 }

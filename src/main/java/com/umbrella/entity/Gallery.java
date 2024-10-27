@@ -16,6 +16,7 @@ public class Gallery {
     private Integer id;
     @Column(name = "image_url", length = 255)
     private String imageUrl;
+
     @ManyToOne
     @JoinColumn(name = "event_id")
     private Event event;
