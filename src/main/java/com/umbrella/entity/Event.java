@@ -1,23 +1,26 @@
 package com.umbrella.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "EVENT")
+@Table(name = "events")
 public class Event {
     @Id
+    @NonNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "name", length = 100)
+    @Column(name = "name")
     private String name;
     @Column(name = "capacity")
     private Integer capacity;
@@ -25,16 +28,20 @@ public class Event {
     private LocalDate eventDate;
     @Column(name = "event_time")
     private LocalTime eventTime;
-    @Column(name = "site", length = 50)
+    @Column(name = "site")
     private String site;
-    @Column(name = "city", length = 50)
+    @Column(name = "city")
     private String city;
     @Column(name = "description")
     private String description;
-    @Column(name = "cover_image_url", length = 255)
+    @Column(name = "cover_image_url")
     private String coverImageUrl;
     @ManyToOne
     @JoinColumn(name = "genre_id")
     private Genre genre;
+
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
+    private Set<Gallery> galleries;
+
 
 }
