@@ -1,6 +1,7 @@
 package com.umbrella.controller;
 
 import com.umbrella.dto.response.EventResponseDto;
+import com.umbrella.dto.response.EventbyIdResponseDto;
 import com.umbrella.service.IEventService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +27,8 @@ public class EventController {
     }
 
     @GetMapping("/{id}")
-    public void findEventById(@PathVariable Integer eventId) {
-
+  public ResponseEntity<EventbyIdResponseDto> findEventById(@PathVariable Integer id) {
+        EventbyIdResponseDto event = eventService.findById(id);
+        return ResponseEntity.ok(event);
     }
 }
