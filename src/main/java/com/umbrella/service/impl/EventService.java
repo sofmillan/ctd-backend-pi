@@ -1,6 +1,7 @@
 package com.umbrella.service.impl;
 
 import com.umbrella.dto.response.EventResponseDto;
+import com.umbrella.dto.response.EventbyIdResponseDto;
 import com.umbrella.entity.Event;
 import com.umbrella.mapper.IEventMapper;
 import com.umbrella.repository.IEventRepository;
@@ -30,10 +31,22 @@ public class EventService implements IEventService {
         log.info("events {}", events);
         return events.stream().map(mapper::toDto).collect(Collectors.toList());
     }
+
     @Override
-    public EventResponseDto findById(Integer id){
+    public EventbyIdResponseDto findById(Integer id) {
         Optional<Event> event = eventRepository.findById(id);
         log.info("event {}", event);
-        return event.map(mapper::toDto).orElse(null);
+
+
+        return event.map(e -> new EventbyIdResponseDto(
+                e.getId(),
+                e.getName(),
+                e.getCapacity(),
+                e.getEventDate(),
+                e.getSite(),
+                e.getCity(),
+                e.getDescription(),
+                e.getGenre()
+        )).orElseThrow(() -> new RuntimeException("Event not found"));
     }
 }
