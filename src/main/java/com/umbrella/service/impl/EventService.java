@@ -38,15 +38,7 @@ public class EventService implements IEventService {
         log.info("event {}", event);
 
 
-        return event.map(e -> new EventbyIdResponseDto(
-                e.getId(),
-                e.getName(),
-                e.getCapacity(),
-                e.getEventDate(),
-                e.getSite(),
-                e.getCity(),
-                e.getDescription(),
-                e.getGenre()
-        )).orElseThrow(() -> new RuntimeException("Event not found"));
+        return event.map(mapper::toEventByIdDto)
+                .orElseThrow(() -> new RuntimeException("Event not found"));
     }
 }
