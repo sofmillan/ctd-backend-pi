@@ -16,10 +16,13 @@ public class User {
     private Integer id;
     @Column(name = "name", length = 50)
     private String name;
+    @Column(name = "last_name", length = 50)
+    private String lastName;
     @Column(name = "email", length = 100)
     private String email;
     @Column(name = "password_hash", length = 255)
     private String passwordHash;
+
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;

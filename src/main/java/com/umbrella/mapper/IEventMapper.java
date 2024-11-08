@@ -1,6 +1,7 @@
 package com.umbrella.mapper;
 
 import com.umbrella.dto.response.EventResponseDto;
+import com.umbrella.dto.response.EventbyIdResponseDto;
 import com.umbrella.entity.Event;
 import com.umbrella.entity.Gallery;
 import org.mapstruct.Mapper;
@@ -30,5 +31,8 @@ public interface IEventMapper {
                 .map(Gallery::getImageUrl)
                 .collect(Collectors.toSet());
     }
+
+    @Mapping(target = "genreName", source = "genre.name")
+    EventbyIdResponseDto toEventByIdDto(Event event);
 
 }

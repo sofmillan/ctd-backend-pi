@@ -18,7 +18,7 @@ public class EventbyIdResponseDto {
     private String description;
     private String site;
     private String city;
-    private Genre genreName;
+    private String genreName;
 
     public Integer getId() {
         return id;
@@ -34,14 +34,6 @@ public class EventbyIdResponseDto {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public Integer getCapacity() {
@@ -60,6 +52,14 @@ public class EventbyIdResponseDto {
         this.eventDate = eventDate;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public String getSite() {
         return site;
     }
@@ -76,11 +76,11 @@ public class EventbyIdResponseDto {
         this.city = city;
     }
 
-    public Genre getGenreName() {
+    public String getGenreName() {
         return genreName;
     }
 
-    public void setGenreName(Genre genreName) {
+    public void setGenreName(String genreName) {
         this.genreName = genreName;
     }
 }
