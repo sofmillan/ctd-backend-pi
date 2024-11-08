@@ -1,30 +1,34 @@
-package com.umbrella.registration;
+package com.umbrella.service.impl;
 
+import com.umbrella.dto.request.UserRegistrationDTO;
+import com.umbrella.dto.response.UserRegistrationSuccessDto;
 import com.umbrella.entity.Role;
 import com.umbrella.entity.User;
+import com.umbrella.mapper.IUserMapper;
 import com.umbrella.repository.RoleRepository;
 import com.umbrella.repository.UserRepository;
+import com.umbrella.service.IUserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class UserRegistrationService {
+public class UserRegistrationService implements IUserService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
 
     private final PasswordEncoder passwordEncoder;
+    private final IUserMapper mapper;
 
-    public User registerNewUser(UserRegistrationDTO registrationDTO) {
+    public UserRegistrationSuccessDto registerUser(UserRegistrationDTO registrationDTO) {
         if (userRepository.existsByEmail(registrationDTO.getEmail())) {
-            throw new RuntimeException("Este correo ya está registrado.");
+            throw new RuntimeException("This email is aleady registered.");
         }
 
         Role userRole = roleRepository.findById(2)
-                .orElseThrow(() -> new RuntimeException("Rol USER no encontrado"));
+                .orElseThrow(() -> new RuntimeException("Role not fond"));
 
         User user = new User();
         user.setName(registrationDTO.getName());
@@ -32,9 +36,12 @@ public class UserRegistrationService {
         user.setEmail(registrationDTO.getEmail());
         user.setPasswordHash(passwordEncoder.encode(registrationDTO.getPassword()));
         user.setRole(userRole);
+        User savedUser = userRepository.save(user);
 
+        UserRegistrationSuccessDto dto = mapper.toRegistrationResponse(savedUser);
+        dto.setId(savedUser.getId());
+        return dto;
 
-        return userRepository.save(user);
     }
 
 

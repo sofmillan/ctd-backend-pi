@@ -1,4 +1,4 @@
-package com.umbrella.registration;
+package com.umbrella.dto.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -17,7 +17,7 @@ public class UserRegistrationDTO {
 
     @NotBlank
     @Size(min = 8, message = "Password must be at least 8 characters")
-    private String password;
+    private String passwordHash;
 
     public @NotBlank String getName() {
         return name;
@@ -44,10 +44,10 @@ public class UserRegistrationDTO {
     }
 
     public @NotBlank @Size(min = 8, message = "Password must be at least 8 characters") String getPassword() {
-        return password;
+        return passwordHash;
     }
 
     public void setPassword(@NotBlank @Size(min = 8, message = "Password must be at least 8 characters") String password) {
-        this.password = password;
+        this.passwordHash = password;
     }
 }
