@@ -2,24 +2,19 @@ package com.umbrella.controller;
 
 import com.umbrella.dto.request.UserRegistrationDTO;
 import com.umbrella.dto.response.UserRegistrationSuccessDto;
+
 import com.umbrella.service.IUserService;
-import com.umbrella.service.impl.UserRegistrationService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/user")
 public class UserController {
 
     private final IUserService userService;
-
-    public UserController(UserRegistrationService userRegistrationService) {
-        this.userService = userRegistrationService;
-    }
 
     @PostMapping("/registration")
     public ResponseEntity<UserRegistrationSuccessDto> registerUser(@Validated @RequestBody UserRegistrationDTO registrationDTO) {
