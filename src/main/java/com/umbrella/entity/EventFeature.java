@@ -5,15 +5,15 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
-@NoArgsConstructor
+/*@NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "event_features")
+@Table(name = "event_features")*/
 public class EventFeature {
-    @Id
+/*    @Id
     @NonNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-  /*  @Column(name = "event_features_id")*/
+  *//*  @Column(name = "event_features_id")*//*
     private Integer id;
 
     @ManyToOne
@@ -45,5 +45,5 @@ public class EventFeature {
 
     public void setFeature(Feature feature) {
         this.feature = feature;
-    }
+    }*/
 }
