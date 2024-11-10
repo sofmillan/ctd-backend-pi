@@ -10,7 +10,11 @@ import org.mapstruct.Named;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -21,6 +25,8 @@ import java.util.stream.Collectors;
 )
 public interface IEventMapper {
     @Mapping(target = "genreName", source = "genre.name")
+    @Mapping(target = "eventDate", source = "eventDate", qualifiedByName = "formatDateToDayMonth")
+    @Mapping(target = "eventTime", source = "eventTime", qualifiedByName = "formatTimeToHourMinuteHrs")
     EventResponseDto toDto(Event event);
 
     List<EventResponseDto> toListDto(List<Event> events);
@@ -30,6 +36,20 @@ public interface IEventMapper {
         return galleries.stream()
                 .map(Gallery::getImageUrl)
                 .collect(Collectors.toSet());
+    }
+
+    @Named("formatDateToDayMonth")
+    default String formatDateToDayMonth(LocalDate date) {
+        return date != null
+                ? date.format(DateTimeFormatter.ofPattern("dd MMM", Locale.ENGLISH)).toUpperCase()
+                : null;
+    }
+
+    @Named("formatTimeToHourMinuteHrs")
+    default String formatTimeToHourMinuteHrs(LocalTime time) {
+        return time != null
+                ? time.format(DateTimeFormatter.ofPattern("HH:mm")) + "hrs"
+                : null;
     }
 
     @Mapping(target = "genreName", source = "genre.name")
