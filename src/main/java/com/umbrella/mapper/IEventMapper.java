@@ -29,7 +29,11 @@ public interface IEventMapper {
     @Mapping(target = "eventTime", source = "eventTime", qualifiedByName = "formatTimeToHourMinuteHrs")
     EventResponseDto toDto(Event event);
 
-    List<EventResponseDto> toListDto(List<Event> events);
+
+    @Mapping(target = "genreName", source = "genre.name")
+    @Mapping(target = "eventDate", source = "eventDate", qualifiedByName = "formatDateToFull")
+    @Mapping(target = "eventTime", source = "eventTime", qualifiedByName = "formatTimeToHourMinuteHrs")
+    EventbyIdResponseDto toDetail(Event event);
 
     @Named("mapGalleryUrls")
     default Set<String> mapGalleryUrls(Set<Gallery> galleries) {
@@ -48,11 +52,15 @@ public interface IEventMapper {
     @Named("formatTimeToHourMinuteHrs")
     default String formatTimeToHourMinuteHrs(LocalTime time) {
         return time != null
-                ? time.format(DateTimeFormatter.ofPattern("HH:mm")) + "hrs"
+                ? time.format(DateTimeFormatter.ofPattern("HH:mm")) + " hrs"
                 : null;
     }
 
-    @Mapping(target = "genreName", source = "genre.name")
-    EventbyIdResponseDto toEventByIdDto(Event event);
+    @Named("formatDateToFull")
+    default String formatDateToFull(LocalDate date) {
+        return date != null
+                ? date.format(DateTimeFormatter.ofPattern("dd MMMM yyyy", Locale.ENGLISH))
+                : null;
+    }
 
 }
