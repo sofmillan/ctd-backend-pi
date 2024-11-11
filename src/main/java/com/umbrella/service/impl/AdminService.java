@@ -27,7 +27,7 @@ public class AdminService implements IAdminService {
             panel.setFullName(user.getName() + " "+user.getLastName());
             panel.setRole(user.getRole().getName());
             panel.setEmail(user.getEmail());
-            panel.setAdmin(panel.getRole().equals("administrator"));
+            panel.setAdmin(panel.getRole().equals("Administrator"));
             panel.setInitials(user.getName().substring(0,1).toUpperCase() +user.getLastName().substring(0,1).toUpperCase());
             return panel;
         }).collect(Collectors.toList());

@@ -2,6 +2,7 @@ package com.umbrella.auth;
 
 import com.umbrella.dto.request.LoginRequestDto;
 import com.umbrella.dto.response.LoginResponseDto;
+import com.umbrella.exception.ResourceNotFoundException;
 import com.umbrella.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,11 +18,11 @@ public class AuthenticationService {
 
 
     public LoginResponseDto authenticate(LoginRequestDto request) {
+        var user = repository.findByEmail(request.getEmail())
+                .orElseThrow(()-> new ResourceNotFoundException("User "+request.getEmail()+" is not registered."));
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
         );
-        var user = repository.findByEmail(request.getEmail())
-                .orElseThrow();
         var jwtToken = jwtService.generateToken(user);
 
         return LoginResponseDto.builder()
