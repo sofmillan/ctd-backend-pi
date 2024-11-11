@@ -1,6 +1,7 @@
 package com.umbrella.controller;
 
 import com.umbrella.dto.request.UserRegistrationDTO;
+import com.umbrella.dto.response.UserDetailDto;
 import com.umbrella.dto.response.UserRegistrationSuccessDto;
 
 import com.umbrella.service.IUserService;
@@ -19,6 +20,11 @@ public class UserController {
     @PostMapping("/registration")
     public ResponseEntity<UserRegistrationSuccessDto> registerUser(@Validated @RequestBody UserRegistrationDTO registrationDTO) {
         return ResponseEntity.ok(userService.registerUser(registrationDTO));
+    }
+
+    @GetMapping("/me")
+    public UserDetailDto getPersonalInformation(@RequestHeader("Authorization") String token){
+        return userService.getUserDeatil(token);
     }
 
 }

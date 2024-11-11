@@ -1,14 +1,18 @@
 package com.umbrella.service.impl;
 
+import com.umbrella.auth.TokenUtils;
 import com.umbrella.dto.request.UserRegistrationDTO;
+import com.umbrella.dto.response.UserDetailDto;
 import com.umbrella.dto.response.UserRegistrationSuccessDto;
 import com.umbrella.entity.Role;
 import com.umbrella.entity.User;
+import com.umbrella.exception.ResourceNotFoundException;
 import com.umbrella.mapper.IUserMapper;
 import com.umbrella.repository.RoleRepository;
 import com.umbrella.repository.UserRepository;
 import com.umbrella.service.IUserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +46,14 @@ public class UserRegistrationService implements IUserService {
         dto.setId(savedUser.getId());
         return dto;
 
+    }
+
+    @Override
+    public UserDetailDto getUserDeatil(String token) {
+        String newtoken = token.replace("Bearer ","");
+        String email = TokenUtils.getEmailFromToken(newtoken);
+        User foundUser = userRepository.findByEmail(email).orElseThrow(()-> new ResourceNotFoundException("User: "+email+" was not found"));
+        return mapper.toDetail(foundUser);
     }
 
 
