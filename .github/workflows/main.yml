@@ -53,8 +53,15 @@ jobs:
         with:
           fetch-depth: 0
       - name: Make gradlew executable
+        run: chmod +x ./gradlew
+      - name: Validate Gradle wrapper
+        uses: gradle/wrapper-validation-action@528707081fdb9562eb819128a9f85ae7fe000e2fbaeaf9f87662e7b3f38cb7d8
+      - name: Build with Gradle
+        uses: gradle/gradle-build-action@98f0304b3a3b7c12ce641177a99d1f3be56f532473a528fda38d53d519cafb13
+        with:
+          arguments: build
 
-        uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v3      
         with:
           name: Package
           path: build/libs
