@@ -12,8 +12,8 @@ env:
   AWS_ECR_REPO_NAME: 'ticketgo'
   AWS_ECR_REPO_LINK: '970547369787.dkr.ecr.us-east-1.amazonaws.com/ticketgo'
   AWS_ECR_REPO_PATH: '970547369787.dkr.ecr.us-east-1.amazonaws.com'
-  AWS_EB_ENVIRONMENT: 'Ticketgo-env'
-  AWS_EB_APPLICATION: 'ticketgo'
+  AWS_EB_ENVIRONMENT: 'Ticketgo-api-env'
+  AWS_EB_APPLICATION: 'ticketgo-api'
   IMAGE_NAME: 'ticketgo-app'
   AWS_ACCOUNT_ID: '9705-4736-9787'
 
@@ -99,6 +99,6 @@ jobs:
           aws_secret_key: ${{ env.AWS_SECRET_ACCESS_KEY }}
           application_name: ${{ env.AWS_EB_APPLICATION }}
           environment_name: ${{ env.AWS_EB_ENVIRONMENT }}
-          version_label: 'ticketgo-api'
+          
           region: ${{ env.AWS_REGION }}
           use_existing_version_if_available: true
