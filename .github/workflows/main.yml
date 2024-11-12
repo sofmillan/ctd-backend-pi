@@ -28,7 +28,8 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: '17' # Especifica la versión de Java que necesitas
+          java-version: '17'
+
 
       - name: Cache Gradle packages
         uses: actions/cache@v3
