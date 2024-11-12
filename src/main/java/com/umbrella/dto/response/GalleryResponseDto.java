@@ -23,4 +23,12 @@ public class GalleryResponseDto {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+
+    @Override
+    public String toString() {
+        return "GalleryResponseDto{" +
+                "id=" + id +
+                ", imageUrl='" + imageUrl + '\'' +
+                '}';
+    }
 }
