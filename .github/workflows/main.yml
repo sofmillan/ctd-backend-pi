@@ -99,7 +99,7 @@ jobs:
           aws_secret_key: ${{ env.AWS_SECRET_ACCESS_KEY }}
           application_name: ${{ env.AWS_EB_APPLICATION }}
           environment_name: ${{ env.AWS_EB_ENVIRONMENT }}
-          version_label: 'backend.jar'
+          version_label: 'ticketgo'
           
           region: ${{ env.AWS_REGION }}
           use_existing_version_if_available: true
