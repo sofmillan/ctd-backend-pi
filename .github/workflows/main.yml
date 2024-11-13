@@ -83,7 +83,6 @@ jobs:
   deploy-ecs:
     needs: build
     runs-on: ubuntu-latest
-
     steps:
       - name: Deploy to ECS
         env:
