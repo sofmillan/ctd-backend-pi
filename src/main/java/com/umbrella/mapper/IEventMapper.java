@@ -45,7 +45,7 @@ public interface IEventMapper {
     @Named("formatDateToDayMonth")
     default String formatDateToDayMonth(LocalDate date) {
         return date != null
-                ? date.format(DateTimeFormatter.ofPattern("dd MMM", Locale.ENGLISH)).toUpperCase()
+                ? date.format(DateTimeFormatter.ofPattern("dd MMM yyyy", Locale.ENGLISH)).toUpperCase()
                 : null;
     }
 

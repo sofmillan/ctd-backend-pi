@@ -19,6 +19,8 @@ public class EventbyIdResponseDto {
     private String city;
     private String genreName;
     private String coverImageUrl;
+    private String tabletImageUrl;
+    private String mobileImageUrl;
     private List<GalleryResponseDto> gallery;
     private List<FeatureResponseDto> features;
 
@@ -117,6 +119,22 @@ public class EventbyIdResponseDto {
 
     public void setFeatures(List<FeatureResponseDto> features) {
         this.features = features;
+    }
+
+    public String getTabletImageUrl() {
+        return tabletImageUrl;
+    }
+
+    public void setTabletImageUrl(String tabletImageUrl) {
+        this.tabletImageUrl = tabletImageUrl;
+    }
+
+    public String getMobileImageUrl() {
+        return mobileImageUrl;
+    }
+
+    public void setMobileImageUrl(String mobileImageUrl) {
+        this.mobileImageUrl = mobileImageUrl;
     }
 }
 

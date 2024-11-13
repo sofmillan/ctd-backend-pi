@@ -44,7 +44,9 @@ public class EventService implements IEventService {
         Event event = eventRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException(""));
         EventbyIdResponseDto response = eventMapper.toDetail(event);
         List<Gallery> galleries =  galleryRepository.findByEventId(id);
+        System.out.println(galleries);
         response.setGallery(galleries.stream().map(galleryMapper::toResponseDto).collect(Collectors.toList()));
+        System.out.println(response.getGallery());
         List<EventFeature> eventFeatures = eventFeatureRepository.findByEventId(id);
         response.setFeatures(eventFeatures.stream().map(e ->featureMapper.toResponse( e.getFeature())).collect(Collectors.toList()));
         return response;

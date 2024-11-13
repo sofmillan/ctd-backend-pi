@@ -39,6 +39,7 @@ public class AdminService implements IAdminService {
         User foundUser = userRepository.findById(userId).orElseThrow(()->new ResourceNotFoundException("User with id "+userId+" was not found"));
         Role role = roleRepository.findByName(roleName).orElseThrow(()->new ResourceNotFoundException("Role: "+roleName+" is not registered"));
         foundUser.setRole(role);
+        System.out.println(foundUser.getRole().getName());
         userRepository.save(foundUser);
         return new SuccessUpdateDto("User "+foundUser.getEmail()+" was updated successfully");
     }

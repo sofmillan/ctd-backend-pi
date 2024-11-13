@@ -40,6 +40,13 @@ public class Event {
     @JoinColumn(name = "genre_id")
     private Genre genre;
 
+    @Column(name = "tablet_image_url")
+    private String tabletImageUrl;
+
+    @Column(name = "mobile_image_url")
+    private String mobileImageUrl;
+
+
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
     private Set<Gallery> galleries;
 
@@ -121,5 +128,21 @@ public class Event {
 
     public void setGenre(Genre genre) {
         this.genre = genre;
+    }
+
+    public String getTabletImageUrl() {
+        return tabletImageUrl;
+    }
+
+    public void setTabletImageUrl(String tabletImageUrl) {
+        this.tabletImageUrl = tabletImageUrl;
+    }
+
+    public String getMobileImageUrl() {
+        return mobileImageUrl;
+    }
+
+    public void setMobileImageUrl(String mobileImageUrl) {
+        this.mobileImageUrl = mobileImageUrl;
     }
 }

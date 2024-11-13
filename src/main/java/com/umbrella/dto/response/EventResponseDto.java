@@ -17,6 +17,8 @@ public class EventResponseDto {
     private String eventDate;
     private String eventTime;
     private String coverImageUrl;
+    private String tabletImageUrl;
+    private String mobileImageUrl;
 
 
     public Integer getId() {
@@ -81,5 +83,21 @@ public class EventResponseDto {
 
     public void setCoverImageUrl(String coverImageUrl) {
         this.coverImageUrl = coverImageUrl;
+    }
+
+    public String getTabletImageUrl() {
+        return tabletImageUrl;
+    }
+
+    public void setTabletImageUrl(String tabletImageUrl) {
+        this.tabletImageUrl = tabletImageUrl;
+    }
+
+    public String getMobileImageUrl() {
+        return mobileImageUrl;
+    }
+
+    public void setMobileImageUrl(String mobileImageUrl) {
+        this.mobileImageUrl = mobileImageUrl;
     }
 }
