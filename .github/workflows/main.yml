@@ -12,7 +12,7 @@ env:
   AWS_ECR_REPO_NAME: 'ticketgo'
   AWS_ECR_REPO_LINK: '970547369787.dkr.ecr.us-east-1.amazonaws.com/ticketgo'
   AWS_ECR_REPO_PATH: '970547369787.dkr.ecr.us-east-1.amazonaws.com'
-  AWS_ECS_CLUSTER_NAME: 'ticketgo-api'
+  AWS_ECS_CLUSTER_NAME: 'ticketgo_api'
   AWS_ECS_SERVICE_NAME: 'ticketgo'
   IMAGE_URI: '970547369787.dkr.ecr.us-east-1.amazonaws.com/ticketgo'
   AWS_ACCOUNT_ID: '9705-4736-9787'
