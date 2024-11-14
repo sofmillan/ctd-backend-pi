@@ -5,30 +5,31 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class GalleryResponseDto {
-    private Integer id;
-    private String imageUrl;
+    private String small;
+    private String medium;
+    private String large;
 
-    public Integer getId() {
-        return id;
+    public String getSmall() {
+        return small;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setSmall(String small) {
+        this.small = small;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getMedium() {
+        return medium;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setMedium(String medium) {
+        this.medium = medium;
     }
 
-    @Override
-    public String toString() {
-        return "GalleryResponseDto{" +
-                "id=" + id +
-                ", imageUrl='" + imageUrl + '\'' +
-                '}';
+    public String getLarge() {
+        return large;
+    }
+
+    public void setLarge(String large) {
+        this.large = large;
     }
 }

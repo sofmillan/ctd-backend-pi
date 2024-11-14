@@ -1,5 +1,6 @@
 package com.umbrella.mapper;
 
+import com.umbrella.dto.response.GalleryListResponseDto;
 import com.umbrella.dto.response.GalleryResponseDto;
 import com.umbrella.entity.Gallery;
 import org.mapstruct.Mapper;
@@ -11,5 +12,5 @@ import org.mapstruct.ReportingPolicy;
         unmappedSourcePolicy = ReportingPolicy.IGNORE
 )
 public interface IGalleryMapper {
-    GalleryResponseDto toResponseDto(Gallery gallery);
+    GalleryListResponseDto toResponseDto(Gallery gallery);
 }

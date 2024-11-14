@@ -30,8 +30,6 @@ public class SecurityConfiguration {
                         .requestMatchers(WHITE_LIST_URL).permitAll()
                         .requestMatchers(GET,"/user/me").hasAnyAuthority("ROLE_User", "ROLE_Administrator")
                         .requestMatchers( "/admin/**").hasAuthority("ROLE_Administrator")
-                        .requestMatchers("/event/**").hasAnyAuthority("ROLE_User", "ROLE_Administrator")
-
                         .anyRequest().permitAll()
                 )
 

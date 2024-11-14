@@ -35,8 +35,14 @@ public class EventService implements IEventService {
     @Override
     public List<EventResponseDto> findAll(){
         List<Event> events = eventRepository.findAll();
-        log.info("events {}", events);
-        return events.stream().map(eventMapper::toDto).collect(Collectors.toList());
+
+        return events.stream().map((event)->{
+            EventResponseDto response = eventMapper.toDto(event);
+            response.getImages().setLarge(event.getCoverImageUrl());
+            response.getImages().setMedium(event.getTabletImageUrl());
+            response.getImages().setSmall(event.getMobileImageUrl());
+            return response;
+        }).collect(Collectors.toList());
     }
 
     @Override
@@ -44,9 +50,11 @@ public class EventService implements IEventService {
         Event event = eventRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException(""));
         EventbyIdResponseDto response = eventMapper.toDetail(event);
         List<Gallery> galleries =  galleryRepository.findByEventId(id);
-        System.out.println(galleries);
+
         response.setGallery(galleries.stream().map(galleryMapper::toResponseDto).collect(Collectors.toList()));
-        System.out.println(response.getGallery());
+        response.getImages().setLarge(event.getCoverImageUrl());
+        response.getImages().setMedium(event.getTabletImageUrl());
+        response.getImages().setSmall(event.getMobileImageUrl());
         List<EventFeature> eventFeatures = eventFeatureRepository.findByEventId(id);
         response.setFeatures(eventFeatures.stream().map(e ->featureMapper.toResponse( e.getFeature())).collect(Collectors.toList()));
         return response;

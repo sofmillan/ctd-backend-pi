@@ -18,10 +18,8 @@ public class EventbyIdResponseDto {
     private String site;
     private String city;
     private String genreName;
-    private String coverImageUrl;
-    private String tabletImageUrl;
-    private String mobileImageUrl;
-    private List<GalleryResponseDto> gallery;
+    private GalleryResponseDto images = new GalleryResponseDto();
+    private List<GalleryListResponseDto> gallery;
     private List<FeatureResponseDto> features;
 
 
@@ -97,19 +95,12 @@ public class EventbyIdResponseDto {
         this.eventTime = eventTime;
     }
 
-    public String getCoverImageUrl() {
-        return coverImageUrl;
-    }
 
-    public void setCoverImageUrl(String coverImageUrl) {
-        this.coverImageUrl = coverImageUrl;
-    }
-
-    public List<GalleryResponseDto> getGallery() {
+    public List<GalleryListResponseDto> getGallery() {
         return gallery;
     }
 
-    public void setGallery(List<GalleryResponseDto> gallery) {
+    public void setGallery(List<GalleryListResponseDto> gallery) {
         this.gallery = gallery;
     }
 
@@ -121,20 +112,12 @@ public class EventbyIdResponseDto {
         this.features = features;
     }
 
-    public String getTabletImageUrl() {
-        return tabletImageUrl;
+    public GalleryResponseDto getImages() {
+        return images;
     }
 
-    public void setTabletImageUrl(String tabletImageUrl) {
-        this.tabletImageUrl = tabletImageUrl;
-    }
-
-    public String getMobileImageUrl() {
-        return mobileImageUrl;
-    }
-
-    public void setMobileImageUrl(String mobileImageUrl) {
-        this.mobileImageUrl = mobileImageUrl;
+    public void setImages(GalleryResponseDto images) {
+        this.images = images;
     }
 }
 

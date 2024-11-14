@@ -16,9 +16,8 @@ public class EventResponseDto {
     private String site;
     private String eventDate;
     private String eventTime;
-    private String coverImageUrl;
-    private String tabletImageUrl;
-    private String mobileImageUrl;
+
+    private GalleryResponseDto images = new GalleryResponseDto();
 
 
     public Integer getId() {
@@ -77,27 +76,11 @@ public class EventResponseDto {
         this.eventTime = eventTime;
     }
 
-    public String getCoverImageUrl() {
-        return coverImageUrl;
+    public GalleryResponseDto getImages() {
+        return images;
     }
 
-    public void setCoverImageUrl(String coverImageUrl) {
-        this.coverImageUrl = coverImageUrl;
-    }
-
-    public String getTabletImageUrl() {
-        return tabletImageUrl;
-    }
-
-    public void setTabletImageUrl(String tabletImageUrl) {
-        this.tabletImageUrl = tabletImageUrl;
-    }
-
-    public String getMobileImageUrl() {
-        return mobileImageUrl;
-    }
-
-    public void setMobileImageUrl(String mobileImageUrl) {
-        this.mobileImageUrl = mobileImageUrl;
+    public void setImages(GalleryResponseDto images) {
+        this.images = images;
     }
 }
