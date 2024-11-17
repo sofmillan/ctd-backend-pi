@@ -9,4 +9,5 @@ import java.util.List;
 public interface IEventService {
     List<EventResponseDto> findAll();
     EventbyIdResponseDto findById(Integer id);
+    void deleteById(Integer id);
 }
