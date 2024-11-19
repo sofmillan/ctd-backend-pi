@@ -22,6 +22,6 @@ public class GenreController {
 
     @GetMapping("/ok")
     public String getGenres(){
-        return "ci/cd";
+        return "ci-cd";
     }
 }
