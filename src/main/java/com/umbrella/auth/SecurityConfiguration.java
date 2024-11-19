@@ -18,7 +18,7 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @RequiredArgsConstructor
 
 public class SecurityConfiguration {
-    private static final String[] WHITE_LIST_URL = {"/login", "/user/registration","/event", "/genre"};
+    private static final String[] WHITE_LIST_URL = {"/login", "/user/registration","/event", "/genre","/admin/users"};
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
 
