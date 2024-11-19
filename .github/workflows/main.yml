@@ -62,6 +62,6 @@ jobs:
       - name: Pull Image from docker hub
         run: sudo docker pull juanleongo/ticketgo:latest
       - name: Delete old container
-        run: docker rm -f ticketgo-container
+        run: sudo docker rm -f ticketgo-container
       - name: Run docker container
-        run: docker run -d -p 8080:8080 --name ticketgo-container juanleongo/ticketgo
+        run: sudo docker run -d -p 8080:8080 --name ticketgo-container juanleongo/ticketgo
