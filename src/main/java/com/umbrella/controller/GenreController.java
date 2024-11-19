@@ -19,4 +19,9 @@ public class GenreController {
     public List<GenreResponseDto> getGenres(@RequestParam(required = false, defaultValue = "false") boolean topGenres){
         return genreService.getGenres(topGenres);
     }
+
+    @GetMapping("/ok")
+    public String getGenres(){
+        return "ci/cd";
+    }
 }
