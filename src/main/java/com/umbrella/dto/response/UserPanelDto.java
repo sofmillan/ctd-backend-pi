@@ -1,7 +1,7 @@
 package com.umbrella.dto.response;
 
 public class UserPanelDto {
-    private String id;
+    private Integer id;
     private String fullName;
     private String email;
     private String role;
@@ -48,11 +48,11 @@ public class UserPanelDto {
         this.initials = initials;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
