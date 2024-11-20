@@ -24,7 +24,7 @@ public class AdminService implements IAdminService {
     public List<UserPanelDto> getUsers() {
         return userRepository.findAll().stream().map(user->{
             var panel = new UserPanelDto();
-            panel.setId(panel.getId());
+            panel.setId(user.getId());
             panel.setFullName(user.getName() + " "+user.getLastName());
             panel.setRole(user.getRole().getName());
             panel.setEmail(user.getEmail());
