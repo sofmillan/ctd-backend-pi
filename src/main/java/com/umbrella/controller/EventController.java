@@ -4,10 +4,7 @@ import com.umbrella.dto.response.EventResponseDto;
 import com.umbrella.dto.response.EventbyIdResponseDto;
 import com.umbrella.service.IEventService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,8 +24,13 @@ public class EventController {
     }
 
     @GetMapping("/{id}")
-  public ResponseEntity<EventbyIdResponseDto> findEventById(@PathVariable Integer id) {
+    public ResponseEntity<EventbyIdResponseDto> findEventById(@PathVariable Integer id) {
         EventbyIdResponseDto event = eventService.findById(id);
         return ResponseEntity.ok(event);
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteById(@PathVariable Integer id) {
+        eventService.deleteById(id);
+        return ResponseEntity.ok("{\"message\": \"event deleted\"}");
     }
 }

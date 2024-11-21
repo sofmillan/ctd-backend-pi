@@ -59,4 +59,12 @@ public class EventService implements IEventService {
         response.setFeatures(eventFeatures.stream().map(e ->featureMapper.toResponse( e.getFeature())).collect(Collectors.toList()));
         return response;
     }
+    @Override
+    public void deleteById(Integer id) throws ResourceNotFoundException {
+        boolean exists = eventRepository.existsById(id);
+        if (!exists) {
+            throw new ResourceNotFoundException("{\"message\": \"Resource not found\"}");
+        }
+        eventRepository.deleteById(id);
+    }
 }
