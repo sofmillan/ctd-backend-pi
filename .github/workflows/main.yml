@@ -60,8 +60,9 @@ jobs:
 
       - name: Deploy to EC2
         run: |
+          pwd
           ssh -t -i ~/.ssh/id_rsa ubuntu@54.147.179.179
-            pwd
+          pwd
           
       
 
