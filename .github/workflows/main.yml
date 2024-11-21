@@ -60,8 +60,9 @@ jobs:
 
       - name: Deploy to EC2
         run: |
-          ssh -i ~/.ssh/id_rsa ec2-user@${{ env.EC2_IP }} << 'EOF'
-            echo "Conexión exitosa a la instancia EC2"
+          ssh -i ~/.ssh/id_rsa ec2-user@${{ env.EC2_IP }}
+            cd actions-runner/
+            ./run.sh
           
       
 
