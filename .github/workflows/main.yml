@@ -13,6 +13,7 @@ env:
   AWS_ECR_REPO_PATH: '970547369787.dkr.ecr.us-east-1.amazonaws.com'
   USERNAME : 'juanleongo'
   CONTRA: 'Lomasfresa420'
+  EC2_IP: '54.147.179.179'
 
 jobs:
   build:
@@ -50,6 +51,18 @@ jobs:
         run: docker build -t juanleongo/ticketgo .
       - name: Publish image to docker hub
         run: docker push juanleongo/ticketgo:latest
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.TICKETGO_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ env.EC2_IP }} >> ~/.ssh/known_hosts
+
+      - name: Deploy to EC2
+        run: |
+          ssh -i ~/.ssh/id_rsa ec2-user@${{ env.EC2_IP }} << 'EOF'
+            echo "Conexión exitosa a la instancia EC2"
+          
       
 
   deploy:
