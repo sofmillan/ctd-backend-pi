@@ -61,6 +61,7 @@ jobs:
       - name: Deploy to EC2
         run: |
           ssh -t -i ~/.ssh/id_rsa ubuntu@54.147.179.179
+            cd ~
             cd /actions-runner/
             ./run.sh
           
