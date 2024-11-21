@@ -60,7 +60,7 @@ jobs:
 
       - name: Deploy to EC2
         run: |
-          ssh -i ~/.ssh/id_rsa ec2-user@${{ env.EC2_IP }}
+          ssh -i "${{ secrets.TICKETGO_KEY }}" ubuntu@ec2-54-147-179-179.compute-1.amazonaws.com
             cd actions-runner/
             ./run.sh
           
