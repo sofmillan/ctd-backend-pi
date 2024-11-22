@@ -59,7 +59,12 @@ jobs:
           ssh-keyscan -H ${{ env.EC2_IP }} >> ~/.ssh/known_hosts
 
       - name: Deploy to EC2
-        run: ssh  -i ~/.ssh/id_rsa ubuntu@54.147.179.179 && pwd
+        run: |
+          ssh  -i ~/.ssh/id_rsa ubuntu@54.147.179.179 << 'EOF'
+            pwd
+
+          EOF
+        
           
           
       
