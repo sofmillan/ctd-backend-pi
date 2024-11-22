@@ -51,18 +51,8 @@ jobs:
         run: docker build -t juanleongo/ticketgo .
       - name: Publish image to docker hub
         run: docker push juanleongo/ticketgo:latest
-      - name: Setup SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.TICKETGO_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H ${{ env.EC2_IP }} >> ~/.ssh/known_hosts
 
-      
-        
           
-          
-      
 
   deploy:
     needs: build
