@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -40,8 +41,7 @@ public class EventService implements IEventService {
     public List<EventResponseDto> findAll(){
         List<Event> events = eventRepository.findAll();
 
-        return events.stream().map(eventMapper::toDto)
-        .collect(Collectors.toList());
+        return events.stream().map(eventMapper::toDto).toList();
     }
 
     @Override
@@ -63,6 +63,12 @@ public class EventService implements IEventService {
             throw new ResourceNotFoundException("{\"message\": \"Resource not found\"}");
         }
         eventRepository.deleteById(id);
+    }
+    public List<String> citiesOfEvent(){
+        return eventRepository.citiesOfEvent();
+    }
+    public Set<String> namesEvent(String eventName){
+         return eventRepository.findByNameContains(eventName).stream().map(Event::getName).collect(Collectors.toSet());
     }
 
     @Override
