@@ -22,12 +22,6 @@ public class Event {
     private Integer id;
     @Column(name = "name")
     private String name;
-    @Column(name = "capacity")
-    private Integer capacity;
-    @Column(name = "event_date")
-    private LocalDate eventDate;
-    @Column(name = "event_time")
-    private LocalTime eventTime;
     @Column(name = "site")
     private String site;
     @Column(name = "city")
@@ -36,15 +30,13 @@ public class Event {
     private String description;
     @Column(name = "cover_image_url")
     private String coverImageUrl;
+
+    @Column(name = "policies")
+    private String policies;
     @ManyToOne
     @JoinColumn(name = "genre_id")
     private Genre genre;
 
-    @Column(name = "tablet_image_url")
-    private String tabletImageUrl;
-
-    @Column(name = "mobile_image_url")
-    private String mobileImageUrl;
 
 
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
@@ -66,29 +58,6 @@ public class Event {
         this.name = name;
     }
 
-    public Integer getCapacity() {
-        return capacity;
-    }
-
-    public void setCapacity(Integer capacity) {
-        this.capacity = capacity;
-    }
-
-    public LocalDate getEventDate() {
-        return eventDate;
-    }
-
-    public void setEventDate(LocalDate eventDate) {
-        this.eventDate = eventDate;
-    }
-
-    public LocalTime getEventTime() {
-        return eventTime;
-    }
-
-    public void setEventTime(LocalTime eventTime) {
-        this.eventTime = eventTime;
-    }
 
     public String getSite() {
         return site;
@@ -130,19 +99,11 @@ public class Event {
         this.genre = genre;
     }
 
-    public String getTabletImageUrl() {
-        return tabletImageUrl;
+    public String getPolicies() {
+        return policies;
     }
 
-    public void setTabletImageUrl(String tabletImageUrl) {
-        this.tabletImageUrl = tabletImageUrl;
-    }
-
-    public String getMobileImageUrl() {
-        return mobileImageUrl;
-    }
-
-    public void setMobileImageUrl(String mobileImageUrl) {
-        this.mobileImageUrl = mobileImageUrl;
+    public void setPolicies(String policies) {
+        this.policies = policies;
     }
 }

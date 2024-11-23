@@ -17,8 +17,15 @@ public class EventResponseDto {
     private String eventDate;
     private String eventTime;
 
-    private GalleryResponseDto images = new GalleryResponseDto();
+    private String coverImageUrl;
 
+    public String getCoverImageUrl() {
+        return coverImageUrl;
+    }
+
+    public void setCoverImageUrl(String coverImageUrl) {
+        this.coverImageUrl = coverImageUrl;
+    }
 
     public Integer getId() {
         return id;
@@ -76,11 +83,4 @@ public class EventResponseDto {
         this.eventTime = eventTime;
     }
 
-    public GalleryResponseDto getImages() {
-        return images;
-    }
-
-    public void setImages(GalleryResponseDto images) {
-        this.images = images;
-    }
 }

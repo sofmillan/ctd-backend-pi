@@ -36,13 +36,8 @@ public class EventService implements IEventService {
     public List<EventResponseDto> findAll(){
         List<Event> events = eventRepository.findAll();
 
-        return events.stream().map((event)->{
-            EventResponseDto response = eventMapper.toDto(event);
-            response.getImages().setLarge(event.getCoverImageUrl());
-            response.getImages().setMedium(event.getTabletImageUrl());
-            response.getImages().setSmall(event.getMobileImageUrl());
-            return response;
-        }).collect(Collectors.toList());
+        return events.stream().map(eventMapper::toDto)
+        .collect(Collectors.toList());
     }
 
     @Override
@@ -52,9 +47,7 @@ public class EventService implements IEventService {
         List<Gallery> galleries =  galleryRepository.findByEventId(id);
 
         response.setGallery(galleries.stream().map(galleryMapper::toResponseDto).collect(Collectors.toList()));
-        response.getImages().setLarge(event.getCoverImageUrl());
-        response.getImages().setMedium(event.getTabletImageUrl());
-        response.getImages().setSmall(event.getMobileImageUrl());
+
         List<EventFeature> eventFeatures = eventFeatureRepository.findByEventId(id);
         response.setFeatures(eventFeatures.stream().map(e ->featureMapper.toResponse( e.getFeature())).collect(Collectors.toList()));
         return response;
