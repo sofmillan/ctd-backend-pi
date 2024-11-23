@@ -33,9 +33,16 @@ public class Event {
 
     @Column(name = "policies")
     private String policies;
+
+    @Column(name = "artist")
+    private String artist;
     @ManyToOne
     @JoinColumn(name = "genre_id")
     private Genre genre;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 
 
 
@@ -105,5 +112,21 @@ public class Event {
 
     public void setPolicies(String policies) {
         this.policies = policies;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public String getArtist() {
+        return artist;
+    }
+
+    public void setArtist(String artist) {
+        this.artist = artist;
     }
 }

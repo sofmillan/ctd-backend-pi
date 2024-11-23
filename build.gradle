@@ -27,6 +27,7 @@ dependencies {
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
 	implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
 	implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
+	implementation group: 'software.amazon.awssdk', name: 's3', version: '2.29.20'
 	annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.2'
 	testAnnotationProcessor 'org.mapstruct:mapstruct-processor:1.6.2'
 	compileOnly 'org.projectlombok:lombok:1.18.32'
