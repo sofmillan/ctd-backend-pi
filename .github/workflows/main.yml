@@ -52,8 +52,6 @@ jobs:
       - name: Publish image to docker hub
         run: docker push juanleongo/ticketgo:latest
 
-          
-
   deploy:
     needs: build
     runs-on: [aws-ec2]
