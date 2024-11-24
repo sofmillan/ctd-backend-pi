@@ -17,6 +17,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,6 +38,7 @@ public class EventService implements IEventService {
     private final GenreRepository genreRepository;
     private final CategoryRepository categoryRepository;
     private final FeatureRepository featureRepository;
+    private final EventDateRepository eventDateRepository;
 
     @Override
     public List<EventResponseDto> findAll(){
@@ -66,7 +70,7 @@ public class EventService implements IEventService {
     }
 
     @Override
-    public void saveEvent(MultipartFile file, NewEventDto newEvent) {
+    public void saveEvent(MultipartFile file, NewEventDto newEvent, List<MultipartFile> gallery) {
 
         Event event = new Event();
         event.setName(newEvent.getName());
@@ -89,6 +93,27 @@ public class EventService implements IEventService {
             eventFeature.setFeature(feature);
             eventFeature.setEvent(savedEvent);
             eventFeatureRepository.save(eventFeature);
+        });
+
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+
+        newEvent.getDates().forEach(date->{
+            EventDate eventDate = new EventDate();
+            eventDate.setEvent(savedEvent);
+            eventDate.setAvailable(true);
+            String[] parts = date.split(" ");
+            eventDate.setEventDate(LocalDate.parse(parts[0], dateFormatter));
+            eventDate.setEventTime(LocalTime.parse(parts[1], timeFormatter));
+            eventDateRepository.save(eventDate);
+        });
+
+        gallery.forEach(image ->{
+            String galleryImageUrl = uploadImage(image);
+            Gallery galleryImage = new Gallery();
+            galleryImage.setEvent(savedEvent);
+            galleryImage.setImageUrl(galleryImageUrl);
+            galleryRepository.save(galleryImage);
         });
     }
 

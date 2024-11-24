@@ -12,5 +12,5 @@ public interface IEventService {
     List<EventResponseDto> findAll();
     EventbyIdResponseDto findById(Integer id);
     void deleteById(Integer id);
-    void saveEvent(MultipartFile file, NewEventDto newEvent);
+    void saveEvent(MultipartFile file, NewEventDto newEvent, List<MultipartFile> gallery);
 }

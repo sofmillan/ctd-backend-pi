@@ -3,7 +3,6 @@ package com.umbrella.dto.request;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @NoArgsConstructor
@@ -14,7 +13,7 @@ public class NewEventDto {
     private String site;
     private Integer genre;
     private Integer category;
-    private List<LocalDateTime> dates;
+    private List<String> dates;
     private String description;
     private List<Integer> features;
     private String policies;
@@ -68,11 +67,11 @@ public class NewEventDto {
         this.category = category;
     }
 
-    public List<LocalDateTime> getDates() {
+    public List<String> getDates() {
         return dates;
     }
 
-    public void setDates(List<LocalDateTime> dates) {
+    public void setDates(List<String> dates) {
         this.dates = dates;
     }
 

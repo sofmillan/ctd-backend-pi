@@ -42,7 +42,7 @@ public class EventController {
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public void uploadImage(@RequestParam("file") MultipartFile file, @RequestPart("dto") NewEventDto dto){
-        eventService.saveEvent(file, dto);
+    public void uploadImage(@RequestParam("file") MultipartFile file, @RequestPart("dto") NewEventDto dto, @RequestParam("gallery") List<MultipartFile> gallery){
+        eventService.saveEvent(file, dto, gallery);
     }
 }
