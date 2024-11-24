@@ -5,6 +5,7 @@ import com.umbrella.dto.request.NewEventDto;
 import com.umbrella.dto.response.EventResponseDto;
 import com.umbrella.dto.response.EventbyIdResponseDto;
 import com.umbrella.entity.*;
+import com.umbrella.exception.ResourceAlreadyExistException;
 import com.umbrella.exception.ResourceNotFoundException;
 import com.umbrella.mapper.IEventMapper;
 import com.umbrella.mapper.IFeatureMapper;
@@ -71,6 +72,9 @@ public class EventService implements IEventService {
 
     @Override
     public void saveEvent(MultipartFile file, NewEventDto newEvent, List<MultipartFile> gallery) {
+        if(eventRepository.findByName(newEvent.getName()).isPresent()){
+            throw new ResourceAlreadyExistException("Event named "+newEvent.getName()+" already exists. Try a new one");
+        }
 
         Event event = new Event();
         event.setName(newEvent.getName());

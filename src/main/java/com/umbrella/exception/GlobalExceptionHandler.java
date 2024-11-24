@@ -18,7 +18,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ResourceAlreadyExistException.class)
     public ResponseEntity<ApiException> resourceAlreadyExist(ResourceAlreadyExistException e){
-        ApiException apiException = new ApiException(e.getMessage(), LocalDateTime.now(), HttpStatus.NOT_FOUND, 409);
+        ApiException apiException = new ApiException(e.getMessage(), LocalDateTime.now(), HttpStatus.CONFLICT, 409);
         return ResponseEntity.status(HttpStatusCode.valueOf(409)).body(apiException);
     }
 }

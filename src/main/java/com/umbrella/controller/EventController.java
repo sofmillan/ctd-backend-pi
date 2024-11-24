@@ -38,11 +38,10 @@ public class EventController {
     }
 
     @PostMapping(
-            path = "/cover",
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public void uploadImage(@RequestParam("file") MultipartFile file, @RequestPart("dto") NewEventDto dto, @RequestParam("gallery") List<MultipartFile> gallery){
+    public void uploadImage(@RequestParam("cover") MultipartFile file, @RequestPart("dto") NewEventDto dto, @RequestParam("gallery") List<MultipartFile> gallery){
         eventService.saveEvent(file, dto, gallery);
     }
 }
