@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.multipart.MultipartException;
 
 import java.time.LocalDateTime;
 
@@ -20,5 +21,11 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiException> resourceAlreadyExist(ResourceAlreadyExistException e){
         ApiException apiException = new ApiException(e.getMessage(), LocalDateTime.now(), HttpStatus.CONFLICT, 409);
         return ResponseEntity.status(HttpStatusCode.valueOf(409)).body(apiException);
+    }
+
+    @ExceptionHandler(MultipartException.class)
+    public ResponseEntity<ApiException> handleMultipartException(MultipartException e) {
+        ApiException apiException = new ApiException(e.getMessage(), LocalDateTime.now(), HttpStatus.BAD_REQUEST, 404);
+        return ResponseEntity.status(HttpStatusCode.valueOf(404)).body(apiException);
     }
 }
