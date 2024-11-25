@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -52,7 +53,7 @@ public class EventController {
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public void editEvent(@RequestParam("cover") MultipartFile file, @RequestPart("dto") NewEventDto dto, @RequestParam("gallery") List<MultipartFile> gallery, @PathVariable Integer idEvent){
+    public void editEvent(@RequestParam(name ="cover", required = false) MultipartFile file, @RequestPart("dto") NewEventDto dto, @RequestParam(name = "gallery", required=false) List<MultipartFile> gallery, @PathVariable Integer idEvent){
         eventService.editEvent(file, dto, gallery, idEvent);
     }
 

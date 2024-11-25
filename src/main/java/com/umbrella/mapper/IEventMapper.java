@@ -25,14 +25,12 @@ import java.util.stream.Collectors;
 )
 public interface IEventMapper {
     @Mapping(target = "genreName", source = "genre.name")
-/*    @Mapping(target = "eventDate", source = "eventDate", qualifiedByName = "formatDateToDayMonth")
-    @Mapping(target = "eventTime", source = "eventTime", qualifiedByName = "formatTimeToHourMinuteHrs")*/
+    @Mapping(target = "categoryName", source = "category.name")
     EventResponseDto toDto(Event event);
 
 
     @Mapping(target = "genreName", source = "genre.name")
-/*    @Mapping(target = "eventDate", source = "eventDate", qualifiedByName = "formatDateToFull")
-    @Mapping(target = "eventTime", source = "eventTime", qualifiedByName = "formatTimeToHourMinuteHrs")*/
+    @Mapping(target = "categoryName", source = "category.name")
     EventbyIdResponseDto toDetail(Event event);
 
     @Named("mapGalleryUrls")

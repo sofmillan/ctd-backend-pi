@@ -11,16 +11,14 @@ import java.util.List;
 public class EventbyIdResponseDto {
     private Integer id;
     private String name;
-    private String eventDate;
-    private String eventTime;
     private String description;
     private String site;
     private String city;
     private String genreName;
+    private String categoryName;
     private List<GalleryListResponseDto> gallery;
     private List<FeatureResponseDto> features;
     private String coverImageUrl;
-
 
     public Integer getId() {
         return id;
@@ -36,15 +34,6 @@ public class EventbyIdResponseDto {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-
-    public String getEventDate() {
-        return eventDate;
-    }
-
-    public void setEventDate(String eventDate) {
-        this.eventDate = eventDate;
     }
 
     public String getDescription() {
@@ -79,15 +68,6 @@ public class EventbyIdResponseDto {
         this.genreName = genreName;
     }
 
-    public String getEventTime() {
-        return eventTime;
-    }
-
-    public void setEventTime(String eventTime) {
-        this.eventTime = eventTime;
-    }
-
-
     public List<GalleryListResponseDto> getGallery() {
         return gallery;
     }
@@ -110,6 +90,14 @@ public class EventbyIdResponseDto {
 
     public void setCoverImageUrl(String coverImageUrl) {
         this.coverImageUrl = coverImageUrl;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 }
 

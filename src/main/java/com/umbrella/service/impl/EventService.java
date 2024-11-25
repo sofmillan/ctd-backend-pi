@@ -150,6 +150,11 @@ public class EventService implements IEventService {
         Category category = categoryRepository.findById(newEvent.getCategory()).orElseThrow(ResourceNotFoundException::new);
         foundEvent.setCategory(category);
 
+        if (file != null && !file.isEmpty()) {
+            String coverImageUrl = uploadImage(file);
+            foundEvent.setCoverImageUrl(coverImageUrl);
+        }
+
         //Features
         List<EventFeature> existingFeatures = eventFeatureRepository.findByEventId(idEvent);
         existingFeatures.forEach(eventFeatureRepository::delete);

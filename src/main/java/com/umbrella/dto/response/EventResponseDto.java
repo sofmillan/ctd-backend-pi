@@ -12,11 +12,9 @@ public class EventResponseDto {
     private Integer id;
     private String name;
     private String genreName;
+    private String categoryName;
     private String city;
     private String site;
-    private String eventDate;
-    private String eventTime;
-
     private String coverImageUrl;
 
     public String getCoverImageUrl() {
@@ -67,20 +65,11 @@ public class EventResponseDto {
         this.site = site;
     }
 
-    public String getEventDate() {
-        return eventDate;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setEventDate(String eventDate) {
-        this.eventDate = eventDate;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
-
-    public String getEventTime() {
-        return eventTime;
-    }
-
-    public void setEventTime(String eventTime) {
-        this.eventTime = eventTime;
-    }
-
 }
