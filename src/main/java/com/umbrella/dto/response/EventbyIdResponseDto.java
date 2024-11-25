@@ -16,10 +16,10 @@ public class EventbyIdResponseDto {
     private String city;
     private String genreName;
     private String categoryName;
+    private String policies;
+    private String coverImageUrl;
     private List<GalleryListResponseDto> gallery;
     private List<FeatureResponseDto> features;
-    private String coverImageUrl;
-
     public Integer getId() {
         return id;
     }
@@ -98,6 +98,14 @@ public class EventbyIdResponseDto {
 
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
+    }
+
+    public String getPolicies() {
+        return policies;
+    }
+
+    public void setPolicies(String policies) {
+        this.policies = policies;
     }
 }
 
