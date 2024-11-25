@@ -1,7 +1,9 @@
 package com.umbrella.service.impl;
 
 import com.umbrella.aws.FileStore;
+import com.umbrella.builder.SpecificationBuilder;
 import com.umbrella.dto.request.NewEventDto;
+import com.umbrella.dto.request.SearchRequestDto;
 import com.umbrella.dto.response.EventResponseDto;
 import com.umbrella.dto.response.EventbyIdResponseDto;
 import com.umbrella.entity.*;
@@ -11,8 +13,10 @@ import com.umbrella.mapper.IFeatureMapper;
 import com.umbrella.mapper.IGalleryMapper;
 import com.umbrella.repository.*;
 import com.umbrella.service.IEventService;
+import com.umbrella.spec.JoinInIdsSpecification;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,12 +25,17 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static com.umbrella.builder.Condition.LogicalOperatorType.AND;
+import static com.umbrella.builder.Condition.LogicalOperatorType.END;
+import static com.umbrella.builder.Condition.OperationType.EQUAL;
+import static com.umbrella.builder.Condition.OperationType.LIKE;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class EventService implements IEventService {
 
-    private final IEventRepository eventRepository;
+    private final EventRepository eventRepository;
     private final GalleryRepository galleryRepository;
     private final IEventMapper eventMapper;
     private final IGalleryMapper galleryMapper;
@@ -50,10 +59,10 @@ public class EventService implements IEventService {
         EventbyIdResponseDto response = eventMapper.toDetail(event);
         List<Gallery> galleries =  galleryRepository.findByEventId(id);
 
-        response.setGallery(galleries.stream().map(galleryMapper::toResponseDto).collect(Collectors.toList()));
+        response.setGallery(galleries.stream().map(galleryMapper::toResponseDto).toList());
 
         List<EventFeature> eventFeatures = eventFeatureRepository.findByEventId(id);
-        response.setFeatures(eventFeatures.stream().map(e ->featureMapper.toResponse( e.getFeature())).collect(Collectors.toList()));
+        response.setFeatures(eventFeatures.stream().map(e ->featureMapper.toResponse( e.getFeature())).toList());
         return response;
     }
     @Override
@@ -114,5 +123,20 @@ public class EventService implements IEventService {
             throw new RuntimeException(e);
         }
 
+    }
+
+    @Override
+    public List<EventResponseDto> search(SearchRequestDto searchRequestDto) {
+        SpecificationBuilder<Event> specBuilder = new SpecificationBuilder<>();
+        Specification<Event> specEventGenre = new JoinInIdsSpecification(searchRequestDto.getGenres());
+        Specification<Event> specEventAndCity = specBuilder
+                .with("name",searchRequestDto.getEvent(),LIKE,AND)
+                .with("city",searchRequestDto.getCity(),EQUAL,END)
+                .build();
+        List<Event> events = eventRepository.findAll(Specification
+                .where(specEventGenre)
+                .and(specEventAndCity)
+        );
+        return events.stream().map(eventMapper::toDto).toList();
     }
 }

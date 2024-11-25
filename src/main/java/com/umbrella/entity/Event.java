@@ -1,16 +1,10 @@
 package com.umbrella.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Set;
 
-/*@Getter
-@Setter*/
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity

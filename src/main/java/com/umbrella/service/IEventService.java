@@ -1,6 +1,7 @@
 package com.umbrella.service;
 
 import com.umbrella.dto.request.NewEventDto;
+import com.umbrella.dto.request.SearchRequestDto;
 import com.umbrella.dto.response.EventResponseDto;
 import com.umbrella.dto.response.EventbyIdResponseDto;
 import com.umbrella.entity.Event;
@@ -16,4 +17,5 @@ public interface IEventService {
     List<String> citiesOfEvent();
     Set<String> namesEvent(String eventName);
     void saveEvent(MultipartFile file, NewEventDto newEvent);
+    List<EventResponseDto> search(SearchRequestDto searchRequestDto);
 }

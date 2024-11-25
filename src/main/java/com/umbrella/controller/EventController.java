@@ -1,6 +1,7 @@
 package com.umbrella.controller;
 
 import com.umbrella.dto.request.NewEventDto;
+import com.umbrella.dto.request.SearchRequestDto;
 import com.umbrella.dto.response.EventResponseDto;
 import com.umbrella.dto.response.EventbyIdResponseDto;
 import com.umbrella.service.IEventService;
@@ -36,11 +37,11 @@ public class EventController {
     public ResponseEntity<Set<String>> namesOfEvent(@PathVariable String eventName) {
         return ResponseEntity.ok(eventService.namesEvent(eventName));
     }
-    /*
-    @PostMapping
-    public ResponseEntity<List<EventResponseDto>> search(@RequestBody /SearchRequest request){
 
-    }*/
+    @PostMapping
+    public ResponseEntity<List<EventResponseDto>> search(@RequestBody SearchRequestDto request){
+        return ResponseEntity.ok(eventService.search(request));
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<EventbyIdResponseDto> findEventById(@PathVariable Integer id) {
