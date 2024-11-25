@@ -55,7 +55,7 @@ public class EventController {
         eventService.editEvent(file, dto, gallery, idEvent);
     }
 
-    @PostMapping
+    @PostMapping("/search")
     public ResponseEntity<List<EventResponseDto>> search(@RequestBody SearchRequestDto request){
         return ResponseEntity.ok(eventService.search(request));
     }
