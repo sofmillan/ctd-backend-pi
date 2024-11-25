@@ -1,6 +1,7 @@
 package com.umbrella.controller;
 
 import com.umbrella.dto.request.NewEventDto;
+import com.umbrella.dto.request.SearchRequestDto;
 import com.umbrella.dto.response.EventResponseDto;
 import com.umbrella.dto.response.EventbyIdResponseDto;
 import com.umbrella.service.IEventService;
@@ -43,5 +44,19 @@ public class EventController {
     )
     public void uploadImage(@RequestParam("cover") MultipartFile file, @RequestPart("dto") NewEventDto dto, @RequestParam("gallery") List<MultipartFile> gallery){
         eventService.saveEvent(file, dto, gallery);
+    }
+
+    @PutMapping(
+            path ="/{idEvent}",
+            consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public void editEvent(@RequestParam("cover") MultipartFile file, @RequestPart("dto") NewEventDto dto, @RequestParam("gallery") List<MultipartFile> gallery, @PathVariable Integer idEvent){
+        eventService.editEvent(file, dto, gallery, idEvent);
+    }
+
+    @PostMapping
+    public ResponseEntity<List<EventResponseDto>> search(@RequestBody SearchRequestDto request){
+        return ResponseEntity.ok(eventService.search(request));
     }
 }
