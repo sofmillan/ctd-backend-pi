@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/event")
@@ -58,5 +59,14 @@ public class EventController {
     @PostMapping("/search")
     public ResponseEntity<List<EventResponseDto>> search(@RequestBody SearchRequestDto request){
         return ResponseEntity.ok(eventService.search(request));
+    }
+    @GetMapping("/cities")
+    public ResponseEntity<List<String>> citiesOfEvent() {
+        return ResponseEntity.ok(eventService.citiesOfEvent());
+    }
+
+    @GetMapping("/names/{eventName}")
+    public ResponseEntity<Set<String>> namesOfEvent(@PathVariable String eventName) {
+        return ResponseEntity.ok(eventService.namesEvent(eventName));
     }
 }
