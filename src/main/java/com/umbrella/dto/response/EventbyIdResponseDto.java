@@ -20,6 +20,7 @@ public class EventbyIdResponseDto {
     private String coverImageUrl;
     private List<GalleryListResponseDto> gallery;
     private List<FeatureResponseDto> features;
+    private List<String> dates;
     public Integer getId() {
         return id;
     }
@@ -106,6 +107,14 @@ public class EventbyIdResponseDto {
 
     public void setPolicies(String policies) {
         this.policies = policies;
+    }
+
+    public List<String> getDates() {
+        return dates;
+    }
+
+    public void setDates(List<String> dates) {
+        this.dates = dates;
     }
 }
 

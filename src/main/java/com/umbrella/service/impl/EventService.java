@@ -66,7 +66,7 @@ public class EventService implements IEventService {
         List<Gallery> galleries =  galleryRepository.findByEventId(id);
 
         response.setGallery(galleries.stream().map(galleryMapper::toResponseDto).collect(Collectors.toList()));
-
+        response.setDates(eventDateRepository.findByEventId(id).stream().map(eventDate -> eventDate.getEventDate()+ " "+eventDate.getEventTime()).toList());
         List<EventFeature> eventFeatures = eventFeatureRepository.findByEventId(id);
         response.setFeatures(eventFeatures.stream().map(e ->featureMapper.toResponse( e.getFeature())).collect(Collectors.toList()));
         return response;
