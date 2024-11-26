@@ -15,6 +15,10 @@ import com.umbrella.mapper.IGalleryMapper;
 import com.umbrella.repository.*;
 import com.umbrella.service.IEventService;
 import com.umbrella.spec.JoinInIdsSpecification;
+import com.umbrella.spec.JoinInNamesSpecification;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
@@ -23,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -208,24 +213,72 @@ public class EventService implements IEventService {
 
     @Override
     public List<EventResponseDto> search(SearchRequestDto searchRequestDto) {
+        Specification<Event> specEventGenre = null;
+        if (searchRequestDto.getGenres() != null && !searchRequestDto.getGenres().isEmpty()) {
+            specEventGenre = new JoinInNamesSpecification(searchRequestDto.getGenres());
+        }
+        Specification<Event> specIds = null;
+        List<Integer> ids = null;
+        if (searchRequestDto.getDates() != null && searchRequestDto.getDates().size() >= 2) {
+            ids = eventDateBetween(
+                    searchRequestDto.getDates().get(0),
+                    searchRequestDto.getDates().get(1));
+            specIds = hasIds(ids);
+        }
+
+
         SpecificationBuilder<Event> specBuilder = new SpecificationBuilder<>();
-        Specification<Event> specEventGenre = new JoinInIdsSpecification(searchRequestDto.getGenres());
-        Specification<Event> specEventAndCity = specBuilder
-                .with("name",searchRequestDto.getEvent(),LIKE,AND)
-                .with("city",searchRequestDto.getCity(),EQUAL,END)
-                .build();
-        List<Event> events = eventRepository.findAll(Specification
-                .where(specEventGenre)
-                .and(specEventAndCity)
+        Specification<Event> specEvent = null;
+        if(isNotBlank(searchRequestDto.getEvent())){
+            specEvent= specBuilder
+                    .with("name", isNotBlank(searchRequestDto.getEvent()) ? searchRequestDto.getEvent() : null, LIKE, AND)
+                    .build();
+        }
 
-        );
-        return events.stream().map(eventMapper::toDto).toList();
+        Specification<Event> specCity = null;
+        if( isNotBlank(searchRequestDto.getCity())){
+            specCity= specBuilder
+                    .with("city", isNotBlank(searchRequestDto.getCity()) ? searchRequestDto.getCity() : null, EQUAL, END)
+                    .build();
+        }
+
+        Specification<Event> finalSpecification = null;
+
+        if (specEventGenre != null) {
+            finalSpecification = Specification.where(finalSpecification).and(specEventGenre);
+        }
+
+        if (specIds != null) {
+            finalSpecification = Specification.where(finalSpecification).and(specIds);
+        }
+        if (specEvent != null) {
+            finalSpecification = Specification.where(finalSpecification).and(specEvent);
+        }
+        if (specCity != null) {
+            finalSpecification = Specification.where(finalSpecification).and(specCity);
+        }
+
+        return eventRepository.findAll(finalSpecification)
+                .stream()
+                .map(eventMapper::toDto)
+                .collect(Collectors.toList());
     }
-
+    private List<Integer> eventDateBetween(LocalDateTime start, LocalDateTime end) {
+        return eventDateRepository.findByEventDateBetween(start.toLocalDate(), end.toLocalDate()).stream().map(e -> e.getEvent().getId()).toList();
+    }
     public List<String> citiesOfEvent(){
         return eventRepository.citiesOfEvent();
     }
     public Set<String> namesEvent(String eventName){
         return eventRepository.findByNameContains(eventName).stream().map(Event::getName).collect(Collectors.toSet());
+    }
+
+    public static Specification<Event> hasIds(List<Integer> ids) {
+        return (Root<Event> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) ->
+                root.get("id").in(ids);
+    }
+
+    private boolean isNotBlank(String str) {
+        return str != null && !str.trim().isEmpty();
     }
 }
