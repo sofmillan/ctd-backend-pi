@@ -14,10 +14,38 @@ public class EventbyIdResponseDto {
     private String description;
     private String site;
     private String city;
+    private Integer genreId;
     private String genreName;
+    private Integer categoryId;
     private String categoryName;
     private String policies;
     private String coverImageUrl;
+    private String artist;
+
+    public Integer getGenreId() {
+        return genreId;
+    }
+
+    public void setGenreId(Integer genreId) {
+        this.genreId = genreId;
+    }
+
+    public Integer getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getArtist() {
+        return artist;
+    }
+
+    public void setArtist(String artist) {
+        this.artist = artist;
+    }
+
     private List<GalleryListResponseDto> gallery;
     private List<FeatureResponseDto> features;
     private List<String> dates;

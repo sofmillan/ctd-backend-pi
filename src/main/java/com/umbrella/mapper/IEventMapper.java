@@ -31,6 +31,8 @@ public interface IEventMapper {
 
     @Mapping(target = "genreName", source = "genre.name")
     @Mapping(target = "categoryName", source = "category.name")
+    @Mapping(target = "categoryId", source = "category.id")
+    @Mapping(target = "genreId", source = "genre.id")
     EventbyIdResponseDto toDetail(Event event);
 
     @Named("mapGalleryUrls")
