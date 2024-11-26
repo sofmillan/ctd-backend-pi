@@ -15,6 +15,7 @@ import com.umbrella.mapper.IGalleryMapper;
 import com.umbrella.repository.*;
 import com.umbrella.service.IEventService;
 import com.umbrella.spec.JoinInIdsSpecification;
+import com.umbrella.spec.JoinInNamesSpecification;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.jpa.domain.Specification;
@@ -23,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -208,20 +210,27 @@ public class EventService implements IEventService {
 
     @Override
     public List<EventResponseDto> search(SearchRequestDto searchRequestDto) {
+        Specification<Event> specEventGenre = new JoinInNamesSpecification(searchRequestDto.getGenres());
+        Specification<Event> specEventId = new JoinInIdsSpecification(eventDateBetween(
+                searchRequestDto.getDates().get(0),
+                searchRequestDto.getDates().get(1))
+        );
         SpecificationBuilder<Event> specBuilder = new SpecificationBuilder<>();
-        Specification<Event> specEventGenre = new JoinInIdsSpecification(searchRequestDto.getGenres());
         Specification<Event> specEventAndCity = specBuilder
                 .with("name",searchRequestDto.getEvent(),LIKE,AND)
                 .with("city",searchRequestDto.getCity(),EQUAL,END)
                 .build();
         List<Event> events = eventRepository.findAll(Specification
                 .where(specEventGenre)
+                .and(specEventId)
                 .and(specEventAndCity)
 
         );
         return events.stream().map(eventMapper::toDto).toList();
     }
-
+    private List<Integer> eventDateBetween(LocalDateTime start, LocalDateTime end) {
+        return eventDateRepository.findByEventDateBetween(start.toLocalDate(), end.toLocalDate()).stream().map(EventDate::getId).toList();
+    }
     public List<String> citiesOfEvent(){
         return eventRepository.citiesOfEvent();
     }

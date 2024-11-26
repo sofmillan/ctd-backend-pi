@@ -6,13 +6,16 @@ import org.springframework.data.jpa.domain.Specification;
 
 import java.util.List;
 
-public class JoinInIdsSpecification implements Specification<Event> {
-    private final List<Integer> ids;
-    public JoinInIdsSpecification(List<Integer> ids) {
-        this.ids = ids;
+public class JoinInNamesSpecification implements Specification<Event> {
+    private final List<String> names;
+    public JoinInNamesSpecification(List<String> names) {
+        this.names = names;
     }
     @Override
     public Predicate toPredicate(Root<Event> root, CriteriaQuery<?> cquery, CriteriaBuilder cbuilder) {
-        return root.get("id").in(ids);
+        return root.join("genre", JoinType.INNER)
+                .get("name")
+                .in(names);
     }
+
 }
