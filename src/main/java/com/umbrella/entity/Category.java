@@ -17,6 +17,8 @@ public class Category {
 
     @Column(name = "name", length=50)
     private String name;
+    @Column(name = "icon", length=50)
+    private String icon;
 
     public Integer getId() {
         return id;
@@ -32,5 +34,13 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 }
