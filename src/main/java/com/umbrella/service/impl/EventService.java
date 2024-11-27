@@ -263,6 +263,12 @@ public class EventService implements IEventService {
                 .map(eventMapper::toDto)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<EventResponseDto> getEventsByCategory(String category) {
+        return eventRepository.findByCategoryName(category).stream().map(eventMapper::toDto).toList();
+    }
+
     private List<Integer> eventDateBetween(LocalDateTime start, LocalDateTime end) {
         return eventDateRepository.findByEventDateBetween(start.toLocalDate(), end.toLocalDate()).stream().map(e -> e.getEvent().getId()).toList();
     }

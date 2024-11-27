@@ -19,5 +19,7 @@ public interface IEventService {
     Set<String> namesEvent(String eventName);
     void editEvent(MultipartFile file, NewEventDto newEvent, List<MultipartFile> gallery, Integer idEvent);
     List<EventResponseDto> search(SearchRequestDto searchRequestDto);
+    List<EventResponseDto> getEventsByCategory(String category);
+
 
 }

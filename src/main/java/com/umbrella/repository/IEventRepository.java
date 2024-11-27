@@ -13,4 +13,5 @@ public interface IEventRepository extends JpaRepository<Event, Integer>, JpaSpec
     @Query("Select distinct e.city from Event e")
     List<String> citiesOfEvent();
     List<Event> findByNameContains(String eventName);
+    List<Event> findByCategoryName(String categoryName);
 }

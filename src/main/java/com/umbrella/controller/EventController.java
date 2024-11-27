@@ -70,4 +70,8 @@ public class EventController {
     public ResponseEntity<Set<String>> namesOfEvent(@PathVariable String eventName) {
         return ResponseEntity.ok(eventService.namesEvent(eventName));
     }
+    @GetMapping("/category/{category}")
+    public ResponseEntity<List<EventResponseDto>> getByCategory(@PathVariable String category) {
+        return ResponseEntity.ok(eventService.getEventsByCategory(category));
+    }
 }
