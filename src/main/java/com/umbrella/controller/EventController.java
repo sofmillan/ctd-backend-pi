@@ -4,6 +4,7 @@ import com.umbrella.dto.request.NewEventDto;
 import com.umbrella.dto.request.SearchRequestDto;
 import com.umbrella.dto.response.EventResponseDto;
 import com.umbrella.dto.response.EventbyIdResponseDto;
+import com.umbrella.dto.response.PageResponseEvent;
 import com.umbrella.service.IEventService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -58,8 +59,8 @@ public class EventController {
     }
 
     @PostMapping("/search")
-    public ResponseEntity<List<EventResponseDto>> search(@RequestBody SearchRequestDto request){
-        return ResponseEntity.ok(eventService.search(request));
+    public ResponseEntity<PageResponseEvent> search(@RequestBody SearchRequestDto request, @RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "4") Integer number){
+        return ResponseEntity.ok(eventService.search(request, page, number));
     }
     @GetMapping("/cities")
     public ResponseEntity<List<String>> citiesOfEvent() {

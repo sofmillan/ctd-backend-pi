@@ -6,6 +6,7 @@ import com.umbrella.dto.request.NewEventDto;
 import com.umbrella.dto.request.SearchRequestDto;
 import com.umbrella.dto.response.EventResponseDto;
 import com.umbrella.dto.response.EventbyIdResponseDto;
+import com.umbrella.dto.response.PageResponseEvent;
 import com.umbrella.entity.*;
 import com.umbrella.exception.ResourceAlreadyExistException;
 import com.umbrella.exception.ResourceNotFoundException;
@@ -21,8 +22,13 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -212,7 +218,7 @@ public class EventService implements IEventService {
     }
 
     @Override
-    public List<EventResponseDto> search(SearchRequestDto searchRequestDto) {
+    public PageResponseEvent search(SearchRequestDto searchRequestDto, Integer page, Integer number) {
         Specification<Event> specEventGenre = null;
         if (searchRequestDto.getGenres() != null && !searchRequestDto.getGenres().isEmpty()) {
             specEventGenre = new JoinInNamesSpecification(searchRequestDto.getGenres());
@@ -225,7 +231,6 @@ public class EventService implements IEventService {
                     searchRequestDto.getDates().get(1));
             specIds = hasIds(ids);
         }
-
 
         SpecificationBuilder<Event> specBuilder = new SpecificationBuilder<>();
         Specification<Event> specEvent = null;
@@ -258,10 +263,13 @@ public class EventService implements IEventService {
             finalSpecification = Specification.where(finalSpecification).and(specCity);
         }
 
-        return eventRepository.findAll(finalSpecification)
-                .stream()
+        Pageable pageable = PageRequest.of(page,number);
+        Page<Event> pages =  eventRepository.findAll(finalSpecification, pageable);
+        PageResponseEvent pageResponseEvent = new PageResponseEvent(pages.getTotalElements(), pages.getTotalPages(), pages.stream()
                 .map(eventMapper::toDto)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
+
+        return pageResponseEvent;
     }
 
     @Override
