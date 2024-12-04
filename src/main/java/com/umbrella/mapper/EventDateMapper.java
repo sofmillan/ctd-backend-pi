@@ -8,6 +8,7 @@ import org.mapstruct.Named;
 import org.mapstruct.ReportingPolicy;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 @Mapper(
@@ -16,12 +17,16 @@ import java.time.format.DateTimeFormatter;
         unmappedSourcePolicy = ReportingPolicy.IGNORE
 )
 public interface EventDateMapper {
-    @Mapping(source = "eventDate", target = "eventDate", dateFormat = "yyyy-MM-dd", qualifiedByName = "mapLocalDateToString")
+    @Mapping(source = ".", target = "eventDate", qualifiedByName = "mapLocalDateToString")
     EventDateResponseDto toDto(EventDate eventDate);
 
 
     @Named("mapLocalDateToString")
-    default String mapLocalDateToString(LocalDate date) {
-        return date != null ? date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) : null;
+    default String mapLocalDateToString(EventDate eventDate) {
+        DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+        return eventDate.getEventDate() != null && eventDate.getEventTime() != null
+                ? FORMATTER.format(eventDate.getEventDate().atTime(eventDate.getEventTime()))
+                : null;
     }
 }
