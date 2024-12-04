@@ -18,6 +18,7 @@ public class NewEventDto {
     private List<Integer> features;
     private String policies;
     private String artist;
+    private Float price;
 
     public String getArtist() {
         return artist;
@@ -97,5 +98,13 @@ public class NewEventDto {
 
     public void setPolicies(String policies) {
         this.policies = policies;
+    }
+
+    public Float getPrice() {
+        return price;
+    }
+
+    public void setPrice(Float price) {
+        this.price = price;
     }
 }

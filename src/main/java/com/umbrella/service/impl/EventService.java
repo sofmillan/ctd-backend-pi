@@ -104,6 +104,7 @@ public class EventService implements IEventService {
         event.setPolicies(newEvent.getPolicies());
         event.setSite(newEvent.getSite());
         event.setArtist(newEvent.getArtist());
+        event.setPrice(newEvent.getPrice());
         Genre genre = genreRepository.findById(newEvent.getGenre()).orElseThrow(ResourceNotFoundException::new);
         event.setGenre(genre);
         String coverImageUrl = uploadImage(file);
@@ -156,6 +157,7 @@ public class EventService implements IEventService {
         foundEvent.setPolicies(newEvent.getPolicies());
         foundEvent.setSite(newEvent.getSite());
         foundEvent.setArtist(newEvent.getArtist());
+        foundEvent.setPrice(newEvent.getPrice());
         Genre genre = genreRepository.findById(newEvent.getGenre()).orElseThrow(ResourceNotFoundException::new);
         foundEvent.setGenre(genre);
         Category category = categoryRepository.findById(newEvent.getCategory()).orElseThrow(ResourceNotFoundException::new);
