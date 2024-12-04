@@ -21,6 +21,7 @@ public class EventbyIdResponseDto {
     private String policies;
     private String coverImageUrl;
     private String artist;
+    private Float price;
 
     public Integer getGenreId() {
         return genreId;
@@ -143,6 +144,14 @@ public class EventbyIdResponseDto {
 
     public void setDates(List<String> dates) {
         this.dates = dates;
+    }
+
+    public Float getPrice() {
+        return price;
+    }
+
+    public void setPrice(Float price) {
+        this.price = price;
     }
 }
 

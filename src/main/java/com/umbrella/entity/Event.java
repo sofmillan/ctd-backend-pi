@@ -44,7 +44,8 @@ public class Event {
     @JoinColumn(name = "category_id")
     private Category category;
 
-
+    @Column(name = "price")
+    private Float price;
 
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
     private Set<Gallery> galleries;
@@ -128,5 +129,13 @@ public class Event {
 
     public void setArtist(String artist) {
         this.artist = artist;
+    }
+
+    public Float getPrice() {
+        return price;
+    }
+
+    public void setPrice(Float price) {
+        this.price = price;
     }
 }
