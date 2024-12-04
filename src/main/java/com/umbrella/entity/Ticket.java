@@ -25,8 +25,11 @@ public class Ticket {
     @JoinColumn(name = "event_date_id")
     private EventDate event;
     @Column(name = "booking_time")
-    private LocalDateTime bookingTime;
-
+    private LocalTime bookingTime;
+    @Column(name = "booking_date")
+    private LocalDate bookingDate;
+    @Column(name = "number")
+    private String number;
     public Integer getId() {
         return id;
     }
@@ -51,12 +54,30 @@ public class Ticket {
         this.event = event;
     }
 
-    public LocalDateTime getBookingTime() {
+    public LocalTime getBookingTime() {
         return bookingTime;
     }
 
-    public void setBookingTime(LocalDateTime bookingTime) {
+    public void setBookingTime(LocalTime bookingTime) {
         this.bookingTime = bookingTime;
     }
 
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public LocalDate getBookingDate() {
+        return bookingDate;
+    }
+
+    public void setBookingDate(LocalDate bookingDate) {
+        this.bookingDate = bookingDate;
+    }
+
+
 }
+
