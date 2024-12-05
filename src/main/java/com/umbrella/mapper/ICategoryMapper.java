@@ -1,5 +1,6 @@
 package com.umbrella.mapper;
 
+import com.umbrella.dto.request.CategoryRequestDto;
 import com.umbrella.dto.response.CategoryResponseDto;
 import com.umbrella.entity.Category;
 import org.mapstruct.Mapper;
@@ -12,4 +13,5 @@ import org.mapstruct.ReportingPolicy;
 )
 public interface ICategoryMapper {
     CategoryResponseDto toResponseDto(Category gallery);
+    Category toEntity(CategoryRequestDto categoryRequestDto);
 }

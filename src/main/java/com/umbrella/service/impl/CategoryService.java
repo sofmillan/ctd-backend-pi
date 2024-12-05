@@ -1,6 +1,8 @@
 package com.umbrella.service.impl;
 
+import com.umbrella.dto.request.CategoryRequestDto;
 import com.umbrella.dto.response.CategoryResponseDto;
+import com.umbrella.entity.Category;
 import com.umbrella.mapper.ICategoryMapper;
 import com.umbrella.repository.CategoryRepository;
 import com.umbrella.service.ICategoryService;
@@ -17,5 +19,13 @@ public class CategoryService implements ICategoryService {
     @Override
     public List<CategoryResponseDto> getCategories() {
         return categoryRepository.findAll().stream().map(categoryMapper::toResponseDto).toList();
+    }
+
+    @Override
+    public CategoryResponseDto createCategory(CategoryRequestDto categoryRequestDto) {
+        Category category = categoryMapper.toEntity(categoryRequestDto);
+        Category savedCategory = categoryRepository.save(category);
+
+        return categoryMapper.toResponseDto(savedCategory);
     }
 }
