@@ -1,5 +1,6 @@
 package com.umbrella.mapper;
 
+import com.umbrella.dto.request.FeatureRequestDto;
 import com.umbrella.dto.response.FeatureResponseDto;
 import com.umbrella.entity.Feature;
 import org.mapstruct.Mapper;
@@ -12,4 +13,5 @@ import org.mapstruct.ReportingPolicy;
 )
 public interface IFeatureMapper {
     FeatureResponseDto toResponse(Feature feature);
+    Feature toEntity(FeatureRequestDto featureRequestDto);
 }
