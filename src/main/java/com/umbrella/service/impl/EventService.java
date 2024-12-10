@@ -88,6 +88,8 @@ public class EventService implements IEventService {
         if (!exists) {
             throw new ResourceNotFoundException("{\"message\": \"Resource not found\"}");
         }
+        List<EventDate> eventDates = eventDateRepository.findByEventId(id);
+        eventDates.forEach(eventDateRepository::delete);
         eventRepository.deleteById(id);
     }
 
