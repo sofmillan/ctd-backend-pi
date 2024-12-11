@@ -61,6 +61,7 @@ public class EventService implements IEventService {
     private final CategoryRepository categoryRepository;
     private final FeatureRepository featureRepository;
     private final EventDateRepository eventDateRepository;
+    private final FavoriteRepository favoriteRepository;
 
     @Override
     public List<EventResponseDto> findAll(){
@@ -90,6 +91,9 @@ public class EventService implements IEventService {
         }
         List<EventDate> eventDates = eventDateRepository.findByEventId(id);
         eventDates.forEach(eventDateRepository::delete);
+
+        List<Favorite> favorites = favoriteRepository.findByEventId(id);
+        favorites.forEach(favoriteRepository::delete);
         eventRepository.deleteById(id);
     }
 
